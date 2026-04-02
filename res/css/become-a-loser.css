@@ -1,0 +1,87 @@
+body {
+  padding: 0 30%;
+}
+
+form {
+  width: 100%;
+}
+
+.tabcontent {
+  flex-direction: column;
+}
+
+.tab {
+  display: flex;
+  padding: 10px 0;
+}
+
+/* Boutons des onglets */
+.tab button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+  color: inherit;
+}
+
+.tab button:hover {
+  background-color: #25232a;
+}
+
+/* Onglet actif */
+.tab button.active {
+  border-bottom: 2px solid white;
+  font-weight: bold;
+}
+
+/* Contenu des onglets */
+.tabcontent {
+  display: none;
+  padding: 20px 0;
+  border-top: none;
+}
+
+.discord-button {
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #5865F2; /* couleur Discord */
+  color: #fff;
+  font-weight: 600;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition-duration: 0.2s;
+  width: fit-content;
+}
+
+.discord-button:hover {
+  background-color: #4752c4;
+  cursor: pointer;
+}
+
+.discord-button svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  fill: white;
+}
+
+.error {
+  color: white;
+  border: red 1px solid;
+  background-color: rgb(251, 86, 86);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px) {
+  body {
+    padding: 0 10px;
+  }  
+}

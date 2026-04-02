@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./res/css/index.css" type="text/css" />
+        <script src="./res/js/main.js" defer></script>
+        <title>Lost me</title>
+    </head>
+    <body>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/res/html/nav.html"; ?>
+        <main>
+            <form action="/" method="post" id="form">
+                <div class="error" style="display: none;" id="error">
+                    <ul id="errorList">
+                    </ul>
+                </div>
+                <label for="name">Nom (Facultatif):</label>
+                <input type="text" id="name" name="name" placeholder="<?php echo $name; ?>">
+                <div class="nameinput">
+                    <label for="loser">Qui veut tu faire perdre (Laisse vide pour faire perdre tous le monde) :</label>
+                    <input type="text" id="loser" name="loser" list="loser-list">
+                    <div class="datalist" id="datalist">
+                        <?php
+                            foreach ($result as $row) {
+                                echo '<button type="button" class="data" onclick="complete(\'' . $row['username'] . '\')">' . $row['username'] . '</button>';
+                            }
+                        ?>
+                    </div>
+                </div>
+                <input type="submit" value="Envoyer">
+            </form>
+            <div class="message">
+                <div class="title">
+                    <img src="./res/img/google-sms.png" alt="Google sms app logo" height="40px">
+                    <h4>Messages</h4>
+                </div>
+                <p class="text">
+                    <span id="name-visualizer">Quelqu'un</span> a décidé de te faire perdre :(
+                </p>
+            </div>
+        </main>
+    </body>
+
+</html>
+

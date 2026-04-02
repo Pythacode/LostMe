@@ -1,0 +1,118 @@
+:root {
+    --background-color : #38363F;
+    --background-color-secondary : #434148;
+}
+
+@font-face {
+  font-family: 'Poetsen One';
+  src: url('./../font/PoetsenOne-Regular.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    background-color: var(--background-color);
+    text-align: justify;
+    font-family: 'Poetsen One', sans-serif;
+    color: white;
+    user-select: none;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+main {
+    margin: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form[method="get"] {
+    text-align: center;
+}
+
+a.button,
+input {
+    margin: 5px 0;
+    text-decoration: none;
+}
+
+a.button,
+input {
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    border-bottom: 2px solid white;
+    color: white;
+    font-family: 'Poetsen One', sans-serif;
+}
+
+a.button:hover,
+a.button:focus,
+input:focus,
+input:hover,
+button:hover {
+  outline: none;
+  background-color: var(--background-color-secondary);
+}
+
+.message {
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.message h4 {
+    margin: 0;
+}
+
+.message img {
+    border-radius: 15px;
+}
+
+.error {
+  color: white;
+  border: red 1px solid;
+  background-color: rgb(251, 86, 86);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.nameinput {
+  display: flex;
+  flex-direction: column;
+}
+
+#loser:focus {
+    margin-bottom: 0;
+}
+
+.datalist {
+  display: none;
+  flex-direction: column;
+  border: white 2px solid;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
+  padding: 2.5px 0;
+}
+
+.data {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    text-align: left;
+    padding: 2.5px;
+}
