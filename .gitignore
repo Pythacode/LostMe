@@ -2,4 +2,4 @@ vendor/
 composer.lock
 *.log
 *.enc
-myLove
+config.yaml
