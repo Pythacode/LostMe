@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->store_result();
 
-    if ($stmt->num_rows > 0) {
+    if ($stmt->num_rows > 0 & $method != 'discord') {
         fatal_error("Ce nom d'utilisateur est déjà pris.");
     }
 
