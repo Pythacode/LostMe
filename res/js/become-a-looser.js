@@ -35,9 +35,6 @@ function openTab(evt, tabName) {
   methodSend.value = tabName;
 }
 
-mask_onglet();
-openTab(event, 'discord')
-
 function add_error(error_text) {
   const li = document.createElement('li');
   li.appendChild(document.createTextNode(error_text));
@@ -56,31 +53,34 @@ form.addEventListener('submit', async function (event) {
   errorList.innerHTML = "";
   error.style.display = "none";
 
-  if (username.value == "") {
-    add_error('Le nom d\'utilisateur ne peut être vide.');
-  }
+  if (methodSend.value != 'discord') {
 
-  else if (await verif_exsists('username', username.value) & methodSend.value != 'discord') {
-    add_error('Le nom d\'utilisateur est déjà pris');
-  }
-
-  if (password.value.length < 8) {
-    add_error('Le mot de passe doit contenire au moin 8 caractères')
-  }
-
-  if (!mail_regex.test(mail.value)) {
-    add_error('Le mail n\'est pas valide')
-  }
-
-  if (methodSend.value == 'free') {
-    if (freeID.value == "") {
-      add_error('FreeID ne peut pas être vide')
+    if (username.value == "") {
+      add_error('Le nom d\'utilisateur ne peut être vide.');
     }
-    else if (await verif_exsists('freeID', freeID.value)) {
-      add_error('ID Free déjà inscrit')
+
+    else if (await verif_exsists('username', username.value) & methodSend.value != 'discord') {
+      add_error('Le nom d\'utilisateur est déjà pris');
     }
-    if (APIkey.value == "") {
-      add_error('La clé d\'API ne peut être nul')
+
+    if (password.value.length < 8) {
+      add_error('Le mot de passe doit contenire au moin 8 caractères')
+    }
+
+    if (!mail_regex.test(mail.value)) {
+      add_error('Le mail n\'est pas valide')
+    }
+
+    if (methodSend.value == 'free') {
+      if (freeID.value == "") {
+        add_error('FreeID ne peut pas être vide')
+      }
+      else if (await verif_exsists('freeID', freeID.value)) {
+        add_error('ID Free déjà inscrit')
+      }
+      if (APIkey.value == "") {
+        add_error('La clé d\'API ne peut être nul')
+      }
     }
   }
 
