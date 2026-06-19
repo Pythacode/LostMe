@@ -28,9 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer le nom d'utilisateur depuis le formulaire
     $username = $_POST['username'];
     $method = $_POST['method'] ?? 'Bidule';
-
-    echo 'Methode : ' . $method;
-
+    
     // Vérifier si le nom existe déjà
     $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
