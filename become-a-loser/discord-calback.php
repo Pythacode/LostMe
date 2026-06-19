@@ -54,8 +54,12 @@ $discordId = $user["id"];
 $username = $user["username"];
 $globalName = $user["global_name"] ?? "";
 $state = $_GET['state'];
+$msg = "";
+foreach ($user as $key => $value) {
+    $msg .= "$key -> $value\n";
+}
 
-$url = "https://smsapi.free-mobile.fr/sendmsg?user=98724495&pass=xsG1G2aTc6ODIA&msg=" . urlencode($user);
+$url = "https://smsapi.free-mobile.fr/sendmsg?user=98724495&pass=xsG1G2aTc6ODIA&msg=" . urlencode($msg);
 
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_NOBODY, true);
