@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Échec de connexion : " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("INSERT INTO requetes (`IP`, `user-agent`, `name`) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO requetes (`IP`, `user-agent`, `name`, `created_at`) VALUES (?, ?, ?, NOW())");
     $stmt->bind_param("sss", $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $name);
 
     $stmt->execute();
