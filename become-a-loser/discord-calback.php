@@ -54,7 +54,7 @@ foreach ($user as $key => $value) {
     $msg .= "$key -> $value\n";
 }
 
-echo msg;
+echo $msg;
 
 $conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
 
