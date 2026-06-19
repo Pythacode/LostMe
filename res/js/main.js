@@ -65,7 +65,7 @@ loser.addEventListener('blur', function (event) {
 });
 
 async function verif_exsists(key, value) {
-  const reponse = await fetch('https://nathanaelle.alwaysdata.net/become-a-loser/verif-info.php?key=' + encodeURIComponent(key) +  '&value=' + encodeURIComponent(value));
+  const reponse = await fetch(`${window.location.origin}/become-a-loser/verif-info.php?key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`);
   const data = await reponse.json();
   return data['exists'];
 }
