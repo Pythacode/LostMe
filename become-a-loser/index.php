@@ -31,24 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo 'Methode : ' . $method;
 
-    if ($method == 'discord') {
-
-        $username = $_GET['username'] ?? '';
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
-        $domain = $protocol . "://" . $_SERVER['HTTP_HOST'];
-
-        $discordOAuthUrl = "https://discord.com/oauth2/authorize" .
-            "?client_id=1060667414225895474" .
-            "&redirect_uri=" . urlencode($domain . "/become-a-loser/discord-calback.php") .
-            "&response_type=code" .
-            "&scope=identify" .
-            "&state=$lastId";
-
-        header("Location: $discordOAuthUrl");
-        exit;
-
-    }
-
     // Vérifier si le nom existe déjà
     $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
