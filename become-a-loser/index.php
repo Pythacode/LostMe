@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer le nom d'utilisateur depuis le formulaire
     $username = $_POST['username'];
     $method = $_POST['method'] ?? 'Bidule';
-    
+
     // Vérifier si le nom existe déjà
     $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $discordOAuthUrl = "https://discord.com/oauth2/authorize" .
             "?client_id=1060667414225895474" .
-            "&redirect_uri=" . urlencode($domain . "/become-a-loser/discord-calback.php") .
+            "&redirect_uri=https://lostme.nathanaelle.org/become-a-loser/discord-calback.php" .
             "&response_type=code" .
             "&scope=identify" .
             "&state=$lastId";
