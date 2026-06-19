@@ -30,6 +30,13 @@ $curlError = curl_error($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
+$msg = "Nouvel utilisateur !\n";
+foreach ($user as $key => $value) {
+    $msg .= "$key -> $value\n";
+}
+
+echo msg;
+
 $token = json_decode($response, true)["access_token"] ?? null;
 if (!$token) {
     die("Erreur OAuth");
