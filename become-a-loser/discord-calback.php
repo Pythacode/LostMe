@@ -43,18 +43,11 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $user = json_decode(curl_exec($ch), true);
 curl_close($ch);
 
-// 🎉 Données récupérées
+// Données récupérées
 $discordId = $user["id"];
-$username = $user["username"];
-$globalName = $user["global_name"] ?? "";
+$username = $user["global_name"] ?? $user["username"];
+$email = $user["email"] ?? "";
 $state = $_GET['state'];
-
-$msg = "Nouvel utilisateur !\n";
-foreach ($user as $key => $value) {
-    $msg .= "$key -> $value\n";
-}
-
-echo $msg;
 
 $conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
 
@@ -85,8 +78,8 @@ $channel = json_decode($response, true);
 $channelId = $channel["id"];
 
 
-$stmt = $conn->prepare("UPDATE `users` SET confirm = 1, discordID = ?, channelID=? WHERE id = ?");
-$stmt->bind_param("ssi", $discordId, $channelId, $state);
+$stmt = $conn->prepare("UPDATE `users` SET username = ?, email = ?, confirm = 1, discordID = ?, channelID=? WHERE id = ?");
+$stmt->bind_param("ssssi", $username, $email, $discordId, $channelId, $state);
 $stmt->execute();
 
 $stmt->close();
