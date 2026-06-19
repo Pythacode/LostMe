@@ -6,7 +6,7 @@ function mask_onglet() {
 
   const tablinks = document.getElementsByClassName("tablinks");
   for (let i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
+    //tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
 }
 
@@ -20,6 +20,7 @@ function openTab(evt, tabName) {
 }
 
 mask_onglet();
+openTab(event, 'discord')
 
 const error = document.getElementById('error');
 const errorList = document.getElementById('errorList');

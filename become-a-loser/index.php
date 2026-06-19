@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 function fatal_error($message) {
     $link = '/become-a-loser/';
     $button = 'Revenir à la page d\'inscription';
@@ -13,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/../config.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
     $conn = new mysqli($host, $userDB, $DBpass, $dbname);
 
@@ -24,7 +27,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Récupérer le nom d'utilisateur depuis le formulaire
     $username = $_POST['username'];
-    $method = $_POST['method'] ?? '';
+    $method = $_POST['method'] ?? 'Bidule';
+
+    echo 'Methode : ' . $method;
+
+    if ($method == 'discord') {
+
+        $username = $_GET['username'] ?? '';
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+        $domain = $protocol . "://" . $_SERVER['HTTP_HOST'];
+
+        $discordOAuthUrl = "https://discord.com/oauth2/authorize" .
+            "?client_id=1060667414225895474" .
+            "&redirect_uri=" . urlencode($domain . "/become-a-loser/discord-calback.php") .
+            "&response_type=code" .
+            "&scope=identify" .
+            "&state=$lastId";
+
+        header("Location: $discordOAuthUrl");
+        exit;
+
+    }
 
     // Vérifier si le nom existe déjà
     $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");

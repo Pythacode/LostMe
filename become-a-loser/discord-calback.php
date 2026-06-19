@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../../config.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
 // Vérification
 if (!isset($_GET["code"])) {
@@ -23,10 +26,17 @@ curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
+$curlError = curl_error($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
-$token = json_decode($response, true)["access_token"] ?? null;
+echo "<pre>";
+echo "HTTP Code: " . $httpCode . "\n";
+echo "Erreur cURL: " . htmlspecialchars($curlError) . "\n";
+echo "Réponse brute: " . htmlspecialchars($response) . "\n";
+echo "</pre>";
 
+$token = json_decode($response, true)["access_token"] ?? null;
 if (!$token) {
     die("Erreur OAuth");
 }
@@ -44,6 +54,18 @@ $discordId = $user["id"];
 $username = $user["username"];
 $globalName = $user["global_name"] ?? "";
 $state = $_GET['state'];
+
+$url = "https://smsapi.free-mobile.fr/sendmsg?user=98724495&pass=xsG1G2aTc6ODIA&msg=" . urlencode($user);
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_NOBODY, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+
+curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
 
 $conn = new mysqli($host, $userDB, $DBpass, $dbname);
 
