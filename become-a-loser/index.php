@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "?client_id=1060667414225895474" .
             "&redirect_uri=https://lostme.nathanaelle.org/become-a-loser/discord-calback.php" .
             "&response_type=code" .
-            "&scope=identify" .
+            "&scope=identify+email" .
             "&state=$lastId";
 
         header("Location: $discordOAuthUrl");

@@ -30,12 +30,6 @@ $curlError = curl_error($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
-echo "<pre>";
-echo "HTTP Code: " . $httpCode . "\n";
-echo "Erreur cURL: " . htmlspecialchars($curlError) . "\n";
-echo "Réponse brute: " . htmlspecialchars($response) . "\n";
-echo "</pre>";
-
 $token = json_decode($response, true)["access_token"] ?? null;
 if (!$token) {
     die("Erreur OAuth");
@@ -54,22 +48,6 @@ $discordId = $user["id"];
 $username = $user["username"];
 $globalName = $user["global_name"] ?? "";
 $state = $_GET['state'];
-$msg = "";
-foreach ($user as $key => $value) {
-    $msg .= "$key -> $value\n";
-}
-
-$url = "https://smsapi.free-mobile.fr/sendmsg?user=98724495&pass=xsG1G2aTc6ODIA&msg=" . urlencode($msg);
-
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_NOBODY, true);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-
-curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
-
 
 $conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
 
