@@ -67,7 +67,7 @@ $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
 
-$conn = new mysqli($host, $userDB, $DBpass, $dbname);
+$conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
 
 // Vérifier la connexion
 if ($conn->connect_error) {

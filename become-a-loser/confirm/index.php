@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
-    $conn = new mysqli($host, $userDB, $DBpass, $dbname);
+    $conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
 
     // Vérifier la connexion
     if ($conn->connect_error) {

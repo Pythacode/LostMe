@@ -8,12 +8,11 @@ $dotenv->safeLoad();
 $id = getenv('ID');
 $pass = getenv('PASS');
 
-$id = getenv('ID');
-$pass = getenv('PASS');
-$host = getenv('HOST');
-$userDB = getenv('DB_USER');
-$DBpass = getenv('DB_PASS');
-$dbname = getenv('DB_NAME');
+$DB_host = getenv('DB_HOST');
+$DB_user = getenv('DB_USER');
+$DB_pass = getenv('DB_PASS');
+$DB_name = getenv('DB_NAME');
+
 $clientId = getenv('CLIENT_ID');
 $clientSecret = getenv('CLIENT_SECRET');
 $redirectUri = getenv('REDIRECT_URI');
