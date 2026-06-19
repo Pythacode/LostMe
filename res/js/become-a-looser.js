@@ -14,9 +14,12 @@ function openTab(evt, tabName) {
   mask_onglet()
 
   document.getElementById(tabName).style.display = "flex";
-  evt.currentTarget.className += " active";
   
-  document.getElementById('methodInput').value = tabName;
+  if (evt) {
+    evt.currentTarget.className += " active";
+  }
+
+  methodSend.value = tabName;
 }
 
 mask_onglet();
@@ -57,7 +60,7 @@ form.addEventListener('submit', async function (event) {
     add_error('Le nom d\'utilisateur ne peut être vide.');
   }
 
-  else if (await verif_exsists('username', username.value)) {
+  else if (await verif_exsists('username', username.value) & methodSend.value != 'discord') {
     add_error('Le nom d\'utilisateur est déjà pris');
   }
 
