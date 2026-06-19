@@ -2,17 +2,19 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Symfony\Component\Yaml\Yaml;
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
 
-$config = Yaml::parseFile(__DIR__ . '/config.yaml');
+$id = getenv('ID');
+$pass = getenv('PASS');
 
-$id = $config['id'];
-$pass = $config['pass'];
-$host = $config['host'];
-$userDB = $config['userDB'];
-$DBpass = $config['DBpass'];
-$dbname = $config['dbname'];
-$clientId = $config['clientId'];
-$clientSecret = $config['clientSecret'];
-$redirectUri = $config['redirectUri'];
-$botToken = $config['botToken'];
+$id = getenv('ID');
+$pass = getenv('PASS');
+$host = getenv('HOST');
+$userDB = getenv('DB_USER');
+$DBpass = getenv('DB_PASS');
+$dbname = getenv('DB_NAME');
+$clientId = getenv('CLIENT_ID');
+$clientSecret = getenv('CLIENT_SECRET');
+$redirectUri = getenv('REDIRECT_URI');
+$botToken = getenv('BOT_TOKEN');
