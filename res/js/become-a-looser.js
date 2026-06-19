@@ -1,3 +1,16 @@
+const error = document.getElementById('error');
+const errorList = document.getElementById('errorList');
+
+const form = document.getElementById('form');
+const username = document.getElementById('username')
+const password = document.getElementById('password')
+const mail = document.getElementById('mail')
+const methodSend = document.getElementById('methodInput')
+const freeID = document.getElementById('freeID')
+const APIkey = document.getElementById('APIkey')
+
+let mail_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 function mask_onglet() {
   const tabcontent = document.getElementsByClassName("tabcontent");
   for (let i = 0; i < tabcontent.length; i++) {
@@ -6,7 +19,7 @@ function mask_onglet() {
 
   const tablinks = document.getElementsByClassName("tablinks");
   for (let i = 0; i < tablinks.length; i++) {
-    //tablinks[i].className = tablinks[i].className.replace(" active", "");
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
 }
 
@@ -24,19 +37,6 @@ function openTab(evt, tabName) {
 
 mask_onglet();
 openTab(event, 'discord')
-
-const error = document.getElementById('error');
-const errorList = document.getElementById('errorList');
-
-const form = document.getElementById('form');
-const username = document.getElementById('username')
-const password = document.getElementById('password')
-const mail = document.getElementById('mail')
-const methodSend = document.getElementById('methodInput')
-const freeID = document.getElementById('freeID')
-const APIkey = document.getElementById('APIkey')
-
-let mail_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 function add_error(error_text) {
   const li = document.createElement('li');
