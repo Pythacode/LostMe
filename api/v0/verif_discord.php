@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM `users` WHERE `method` = 'discord' AND `discordID` = ?;");
+    $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM `users` WHERE `method` = 'discord' AND `discordID` = ?;");
     $stmt->bind_param("i", $body['user_id']);
     $stmt->execute();
     $result = $stmt->get_result();
