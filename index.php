@@ -2,9 +2,6 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
-$conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
-
-
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     $index = mt_rand(5, 15);
@@ -54,6 +51,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     include 'confirm.html';
 }
-
 
 ?>

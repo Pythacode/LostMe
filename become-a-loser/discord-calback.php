@@ -49,8 +49,6 @@ $username = $user["global_name"] ?? $user["username"];
 $email = $user["email"] ?? "";
 $state = $_GET['state'];
 
-$conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
-
 // Vérifier la connexion
 if ($conn->connect_error) {
     die("Échec de connexion : " . $conn->connect_error);
@@ -76,7 +74,6 @@ curl_close($ch);
 
 $channel = json_decode($response, true);
 $channelId = $channel["id"];
-
 
 $stmt = $conn->prepare("UPDATE `users` SET username = ?, email = ?, confirm = 1, discordID = ?, channelID=? WHERE id = ?");
 $stmt->bind_param("ssssi", $username, $email, $discordId, $channelId, $state);

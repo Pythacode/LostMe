@@ -52,7 +52,6 @@ function complete(value) {
   datalist.style.display = "none";
 }
 
-
 loser.addEventListener('input', check_datalist)
 loser.addEventListener('click', check_datalist)
 loser.addEventListener('blur', function (event) {

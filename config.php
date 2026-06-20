@@ -18,6 +18,8 @@ $clientSecret = getenv('CLIENT_SECRET');
 $redirectUri = getenv('REDIRECT_URI');
 $botToken = getenv('BOT_TOKEN');
 
+$conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
+
 function send_message(array $row, string $message, string $botToken) {
     if ($row['method'] == 'free') {
             $url = "https://smsapi.free-mobile.fr/sendmsg?user=" . $row['freeID'] . "&pass=" . $row['APIkey'] . "&msg=" . urlencode($message);

@@ -5,7 +5,6 @@ header('Access-Control-Allow-Methods: GET');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
 
-
 $key = $_GET['key'] ?? null;
 $value = $_GET['value'] ?? null;
 
@@ -15,8 +14,6 @@ if ($key === null || $value === null) {
 }
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
-
-$conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
 
 if ($conn->connect_error) {
     http_response_code(500);

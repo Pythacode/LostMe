@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
-    $conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
+    
 
     // Vérifier la connexion
     if ($conn->connect_error) {
@@ -52,8 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->num_rows > 0) {
             fatal_error("Cet utilisateur Free est déjà utilisé.");
         }
-
-
+        
         $confirmCode = mt_rand(1000, max: 9999);
     }
 
