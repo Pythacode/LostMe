@@ -67,6 +67,7 @@ function send_message(array $row, string $message, string $botToken) {
 }
 
 function send_messages($loser, $message) {
+    global $conn, $botToken;
     if ($loser == '') {
 
         $stmt = $conn->prepare("SELECT `confirm`, `freeID`, `APIkey`, `method`, `channelID` FROM `users`");
