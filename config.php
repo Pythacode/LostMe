@@ -20,6 +20,13 @@ $botToken = getenv('BOT_TOKEN');
 
 $conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
 
+if ($conn->connect_error) {
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Connexion BDD échouée : ' . $conn->connect_error]);
+    exit;
+}
+
 function send_message(array $row, string $message, string $botToken) {
     if ($row['method'] == 'free') {
             $url = "https://smsapi.free-mobile.fr/sendmsg?user=" . $row['freeID'] . "&pass=" . $row['APIkey'] . "&msg=" . urlencode($message);
