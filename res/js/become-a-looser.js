@@ -12,6 +12,7 @@ const APIkey = document.getElementById('APIkey')
 let mail_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 function mask_onglet() {
+  document.getElementById("not_discord").style.display = "none";
   const tabcontent = document.getElementsByClassName("tabcontent");
   for (let i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
@@ -27,7 +28,10 @@ function openTab(evt, tabName) {
   mask_onglet()
 
   document.getElementById(tabName).style.display = "flex";
-  
+  if (tabName != 'discord') {
+    document.getElementById("not_discord").style.display = "flex";
+  }
+
   if (evt) {
     evt.currentTarget.className += " active";
   }
@@ -42,7 +46,7 @@ function add_error(error_text) {
 }
 
 async function verif_exsists(key, value) {
-  const reponse = await fetch('https://nathanaelle.alwaysdata.net/become-a-loser/verif-info.php?key=' + encodeURIComponent(key) +  '&value=' + encodeURIComponent(value));
+  const reponse = await fetch(`${window.location.origin}/become-a-loser/verif-info.php?key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`);
   const data = await reponse.json();
   return data['exists'];
 }

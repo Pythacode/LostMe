@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
 $dotenv->safeLoad();
 
 $id = getenv('ID');
@@ -29,48 +29,61 @@ if ($conn->connect_error) {
 
 function send_message(array $row, string $message, string $botToken) {
     if ($row['method'] == 'free') {
-            $url = "https://smsapi.free-mobile.fr/sendmsg?user=" . $row['freeID'] . "&pass=" . $row['APIkey'] . "&msg=" . urlencode($message);
+        $url = "https://smsapi.free-mobile.fr/sendmsg?user=" . $row['freeID'] . "&pass=" . $row['APIkey'] . "&msg=" . urlencode($message);
 
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_NOBODY, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_NOBODY, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 
-            curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);
-        }
-        if ($row['method'] == 'discord') {
+        curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+    } else if ($row['method'] == 'discord') {
+        
+        $channelId = $row["channelID"];
+
+        $url = "https://discord.com/api/v10/channels/$channelId/messages";
+
+        $data = [
+            "content" => $message
+        ];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bot $botToken",
+            "Content-Type: application/json"
+        ]);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);                
+    } else if ($row['method'] == 'mailSubmit') {
+
+        try {
+            $resend = Resend::client(getenv('RESEND_API_KEY'));
             
-            $channelId = $row["channelID"];
-
-            $url = "https://discord.com/api/v10/channels/$channelId/messages";
-
-            $data = [
-                "content" => $message
-            ];
-
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                "Authorization: Bot $botToken",
-                "Content-Type: application/json"
+            $resend->emails->send([
+                'from' => 'youlose@nathanaelle.org',
+                'to' => $row['email'],
+                'subject' => 'You lose',
+                'html' => str_replace("\n", "<br>", $message)
             ]);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            curl_close($ch);                
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
 
+    }
 }
 
 function send_messages($loser, $message) {
     global $conn, $botToken;
     if ($loser == '') {
 
-        $stmt = $conn->prepare("SELECT `confirm`, `freeID`, `APIkey`, `method`, `channelID` FROM `users`");
+        $stmt = $conn->prepare("SELECT `confirm`, `freeID`, `APIkey`, `method`, `channelID`, `email` FROM `users`");
         $stmt->execute();
         $result = $stmt->get_result();
         $rows = $result->fetch_all(MYSQLI_ASSOC);
@@ -80,8 +93,8 @@ function send_messages($loser, $message) {
         }
 
     } else {
-        $stmt = $conn->prepare("SELECT `confirm`, `freeID`, `APIkey`, `method`, `channelID` FROM `users` WHERE `username` = ?");
-        $stmt->bind_param("s", $_POST['loser']);
+        $stmt = $conn->prepare("SELECT `confirm`, `freeID`, `APIkey`, `method`, `channelID`, `email` FROM `users` WHERE `username` = ?");
+        $stmt->bind_param("s", $loser);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();

@@ -18,13 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
-    
-
-    // Vérifier la connexion
-    if ($conn->connect_error) {
-        die("Échec de connexion : " . $conn->connect_error);
-    }
-
     // Récupérer le nom d'utilisateur depuis le formulaire
     $username = $_POST['username'];
     $method = $_POST['method'] ?? 'Bidule';
@@ -52,9 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->num_rows > 0) {
             fatal_error("Cet utilisateur Free est déjà utilisé.");
         }
-        
-        $confirmCode = mt_rand(1000, max: 9999);
     }
+
+    $confirmCode = mt_rand(1000, max: 9999);
 
     $confirmed = 0;
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -65,24 +58,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $lastId = $conn->insert_id;
     $stmt->close();
-    $conn->close();
+    $conn->commit();
 
     if ($method == 'free') {
 
-        $message = "Become a loser\n\nVotre code de confirmation pour finaliser la création de votre compte est " . $confirmCode;
+        $message = "LostMe\n\nVotre code de confirmation pour finaliser la création de votre compte est " . $confirmCode;
 
-        $url = "https://smsapi.free-mobile.fr/sendmsg?user=" . $id . "&pass=" . $pass . "&msg=" . urlencode($message);
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_NOBODY, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-
-        curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        send_messages($username, $message);
 
         $message = 'Un code de confirmation vous à été envoyer par SMS.';
+        $link = '/become-a-loser/confirm/';
+        $button = 'Finaliser mon inscription';
+
+        include 'result.html';
+
+    } else if ($method == 'mailSubmit') {
+
+        $message = "LostMe\n\nVotre code de confirmation pour finaliser la création de votre compte est " . $confirmCode;
+
+        $resend = Resend::client(getenv('RESEND_API_KEY'));
+
+        $resend->emails->send([
+            'from' => 'youlose@nathanaelle.org',
+            'to' => $_POST['mail'],
+            'subject' => 'Votre code de vérification LostMe',
+            'html' => $message
+        ]);
+
+        $message = 'Un code de confirmation vous à été envoyer par mail.';
         $link = '/become-a-loser/confirm/';
         $button = 'Finaliser mon inscription';
 

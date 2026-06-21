@@ -55,25 +55,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt->close();
-    $conn->close();
-
-    $message = "Become a loser\n\nVotre compte à été crée, vous recevrez les SMS perdants.";
-
-    $url = "https://smsapi.free-mobile.fr/sendmsg?user=" . $id . "&pass=" . $pass . "&msg=" . urlencode($message);
-
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_NOBODY, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-
-    curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
+    
+    $message = "Become a loser\n\nVotre compte à été crée, vous recevrez les messages perdants.";
+    
+    send_messages($username, $message);
+    
     $message = 'Votre inscription à été finalisé.';
     $link = '/';
     $button = 'Retour à l\'accueil';
-
+    
+    $conn->close();
     include 'result.html';
 }
 

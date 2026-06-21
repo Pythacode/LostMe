@@ -46,9 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 
     $conn->close();
-
+    
     $message_output = "Message envoyé avec succés";
-
+    
     include 'confirm.html';
 }
 

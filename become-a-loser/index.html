@@ -34,14 +34,15 @@
                 <button type="button" class="tablinks" onclick="openTab(event, 'mailSubmit')">Mail</button>
                 <button type="button" class="tablinks" onclick="openTab(event, 'free')">Free</button>
             </div>
-            <div id="free" class="tabcontent" style="display: none;">
+            <div class="tabcontent" id="not_discord" style="display: none;">
                 <label for="username">Nom d’utilisateur</label>
                 <input type="text" id="username" name="username" placeholder="">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="">
                 <label for="mail">Email</label>
                 <input type="mail" id="mail" name="mail" placeholder="">
-
+            </div>
+            <div id="free" class="tabcontent" style="display: none;">
                 <label for="freeID">Identifiant Free</label>
                 <input type="text" id="freeID" name="freeID" placeholder="">
                 <label for="APIkey">Clé d'API free</label>
@@ -55,13 +56,6 @@
                 </button>
             </div>
             <div id="mailSubmit" class="tabcontent" style="display: none;">
-                <label for="username">Nom d’utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="">
-                <label for="mail">Email</label>
-                <input type="mail" id="mail" name="mail" placeholder="">
-
                 <input type="submit" value="Valider l'inscription">
             </div>
         </form>
