@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     fclose($file);
 
-    $result = $conn->query("SELECT username FROM users");
+    $result = $conn->query("SELECT username FROM users WHERE `confirm` = 1");
 
     include './index.html';
 }
