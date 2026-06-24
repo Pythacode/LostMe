@@ -67,7 +67,7 @@ function send_message(array $row, string $message, string $botToken) {
             $resend = Resend::client(getenv('RESEND_API_KEY'));
             
             $resend->emails->send([
-                'from' => 'youlose@nathanaelle.org',
+                'from' => 'LostMe <youlose@nathanaelle.org>',
                 'to' => $row['email'],
                 'subject' => 'You lose',
                 'html' => str_replace("\n", "<br>", $message)
