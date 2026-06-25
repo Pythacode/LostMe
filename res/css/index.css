@@ -59,7 +59,8 @@ button:hover {
   background-color: var(--background-color-secondary);
 }
 
-a {
+a,
+input {
     color: white;
 }
 
