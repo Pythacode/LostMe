@@ -1,8 +1,8 @@
 const header = document.getElementsByTagName('header')[0]
 const path = window.location.pathname;
 
-const links = ["/", "/become-a-loser/"];
-const tag = ["Accueil", "Become a loser"]
+const links = ["/", "/become-a-loser/", "/mentions-legales/"];
+const tag = ["Accueil", "Become a loser", "Mentions légales"]
 
 links.forEach((url, index) => {
   link = document.createElement('a')
