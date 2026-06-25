@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt = $conn->prepare("INSERT INTO requetes (`IP`, `user_agent`, `name`, `created_at`, `loser`) VALUES (?, ?, ?, NOW(), ?)");
-    $stmt->bind_param("ssss", $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $name, $_POST['name'] == "" ? "Tous le monde" : $_POST['name']);
+    $stmt->bind_param("sssss", $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $name, $_POST['name'] == "" ? "Tous le monde" : $_POST['name']);
 
     $stmt->execute();
     $stmt->close();
