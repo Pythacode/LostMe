@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $name = ($_POST['name'] == "" ? "Quelqu'un" : $_POST['name']);
+    $nameS = $_POST['name'] == "" ? "Tous le monde" : $_POST['name'];
     $count = $_POST['loser'] == "" ? "tous vous" : "te";
     $message = $name .  " a décidé de " . $count . " faire perdre :(";
 
@@ -40,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt = $conn->prepare("INSERT INTO requetes (`IP`, `user_agent`, `name`, `created_at`, `loser`) VALUES (?, ?, ?, NOW(), ?)");
-    $stmt->bind_param("sssss", $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $name, $_POST['name'] == "" ? "Tous le monde" : $_POST['name']);
+    $stmt->bind_param("ssss", $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $name, $nameS);
 
     $stmt->execute();
     $stmt->close();
