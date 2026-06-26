@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $name = ($_POST['name'] == "" ? "Quelqu'un" : $_POST['name']);
-    $nameS = $_POST['name'] == "" ? "Tous le monde" : $_POST['name'];
+    $nameS = $_POST['loser'] == "" ? "Tous le monde" : $_POST['name'];
     $count = $_POST['loser'] == "" ? "tous vous" : "te";
     $message = $name .  " a décidé de " . $count . " faire perdre :(";
 
