@@ -12,13 +12,14 @@ $DB_host = getenv('DB_HOST');
 $DB_user = getenv('DB_USER');
 $DB_pass = getenv('DB_PASS');
 $DB_name = getenv('DB_NAME');
+$DB_port = getenv('DB_PORT');
 
 $clientId = getenv('CLIENT_ID');
 $clientSecret = getenv('CLIENT_SECRET');
 $redirectUri = getenv('REDIRECT_URI');
 $botToken = getenv('BOT_TOKEN');
 
-$conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name);
+$conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name, $DB_port);
 
 if ($conn->connect_error) {
     http_response_code(500);
