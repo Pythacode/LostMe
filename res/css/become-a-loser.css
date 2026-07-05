@@ -85,3 +85,8 @@ form {
     padding: 0 10px;
   }  
 }
+
+.mentionLegales {
+  color: gray !important;
+  font-size: 0.8rem;
+}
