@@ -35,11 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     send_messages($_POST['loser'], $message);
 
-    // Vérifier la connexion
-    if ($conn->connect_error) {
-        die("Échec de connexion : " . $conn->connect_error);
-    }
-
     $stmt = $conn->prepare("INSERT INTO requetes (`IP`, `user_agent`, `name`, `created_at`, `loser`) VALUES (?, ?, ?, NOW(), ?)");
     $stmt->bind_param("ssss", $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $name, $nameS);
 

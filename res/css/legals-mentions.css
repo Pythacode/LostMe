@@ -12,3 +12,7 @@ article {
 section h2 {
     border-bottom: 1px solid white;
 }
+
+address {
+    white-space: pre-line;
+}

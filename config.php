@@ -104,3 +104,4 @@ function send_messages($loser, $message) {
         
     }
 }
+?>
