@@ -75,15 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if ($method == 'mailSubmit') {
 
         $message = "LostMe\n\nVotre code de confirmation pour finaliser la création de votre compte est " . $confirmCode;
-
-        $resend = Resend::client(getenv('RESEND_API_KEY'));
-
-        $resend->emails->send([
-            'from' => 'youlose@nathanaelle.org',
-            'to' => $_POST['mail'],
-            'subject' => 'Votre code de vérification LostMe',
-            'html' => $message
-        ]);
+        send_message(['method' => 'mailSubmit', 'email' => $_POST['mail']], $message, '');
 
         $message = 'Un code de confirmation vous à été envoyer par mail.';
         $link = '/become-a-loser/confirm/';
