@@ -28,6 +28,44 @@ if ($conn->connect_error) {
     exit;
 }
 
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+function send_mail($body, $subject, $to, $from, $fromName) {
+    $fromEmail = $from . "@lostme.nathanaelle.org";
+
+    $mail = new PHPMailer(true);
+
+    
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'mail.infomaniak.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = $fromEmail;
+        $mail->Password = $_ENV["MAIL_PASS"];
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->CharSet = 'UTF-8';
+        
+        $mail->setFrom($fromEmail, $fromName);
+        $mail->addAddress($to);
+        
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        $result = $mail->send();
+        return $result;
+
+    } catch (Exception $e) {
+        error_log("[SEND_ERROR] à $to : " . $mail->ErrorInfo);
+        return false;
+    }
+}
+
 function send_message(array $row, string $message, string $botToken) {
     if ($row['method'] == 'free') {
         $url = "https://smsapi.free-mobile.fr/sendmsg?user=" . $row['freeID'] . "&pass=" . $row['APIkey'] . "&msg=" . urlencode($message);
@@ -65,14 +103,7 @@ function send_message(array $row, string $message, string $botToken) {
     } else if ($row['method'] == 'mailSubmit') {
 
         try {
-            $resend = Resend::client(getenv('RESEND_API_KEY'));
-            
-            $resend->emails->send([
-                'from' => 'LostMe <youlose@nathanaelle.org>',
-                'to' => $row['email'],
-                'subject' => 'You lose',
-                'html' => str_replace("\n", "<br>", $message)
-            ]);
+            send_mail(str_replace("\n", "<br>", $message), 'You lose', $row['email'], 'youlose', 'LostMe'); 
         } catch (\Exception $e) {
             echo $e->getMessage();
         }

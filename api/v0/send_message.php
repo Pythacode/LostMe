@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $body['looser'] ?? '',
         $body['msg']
     );
-    json(200, ['response' => "Messge.s send !"]);
+    json(200, ['response' => "Messages send !"]);
 }
 
 ?>
