@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 function fatal_error($message) {
     $link = '/become-a-loser/';
     $button = 'Revenir à la page d\'inscription';

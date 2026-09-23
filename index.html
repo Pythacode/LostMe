@@ -24,7 +24,7 @@
                     <div class="datalist" id="datalist">
                         <?php
                             foreach ($result as $row) {
-                                echo '<button type="button" class="data" onclick="complete(\'' . $row['username'] . '\')">' . $row['username'] . '</button>';
+                                echo '<button type="button" class="data" onclick="complete(\'' . htmlspecialchars($row['username']) . '\')">' . htmlspecialchars($row['username']) . '</button>';
                             }
                         ?>
                     </div>
