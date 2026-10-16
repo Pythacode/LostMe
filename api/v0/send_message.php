@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM api_requests WHERE user_id = ? AND time >= NOW() - INTERVAL 24 HOUR");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM api_requests WHERE user_id = ? AND date >= NOW() - INTERVAL 24 HOUR");
     $stmt->bind_param("i", $user['id']);
     $stmt->execute();
     $stmt->execute();
