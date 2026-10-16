@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
-    $msg = $_GET['msg'];
+    $msg = $_GET['msg'] ?? '';
     $looser = $_GET['looser'] ?? '';
 
     if (!isset($msg)) {
