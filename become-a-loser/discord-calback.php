@@ -12,7 +12,6 @@ if (!isset($_GET["code"])) {
 
 $code = $_GET["code"];
 
-// 🔁 Échange du code contre un token
 $data = [
     "client_id" => $clientId,
     "client_secret" => $clientSecret,
