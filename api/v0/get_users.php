@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     $users = [];
     while ($row = $stmt->fetch_assoc()) {
-        $users[] = $row;
+        $users[] = $row['username'];
     }
 
     $stmt->close();
