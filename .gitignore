@@ -2,3 +2,7 @@ vendor/
 *.log
 *.enc
 .env
+
+# Ignore tous les fichiers/dossiers commençant par un point (Infomaniak config)
+.*
+!.gitignore
