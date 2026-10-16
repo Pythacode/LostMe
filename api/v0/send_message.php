@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         json(429, ['error' => 'Limite de requêtes atteinte. (10/24h glissante)']);
     }
 
-    $stmt = $conn->prepare("INSERT INTO requetes (`user_id`, `loser`, `message`) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO api_requests (`user_id`, `loser`, `message`) VALUES (?, ?, ?)");
     $stmt->bind_param("iss", $user['id'], $looser ?? '', $msg);
 
     $stmt->execute();
