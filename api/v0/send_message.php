@@ -29,8 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    $user_id = $user['id']
+
     $stmt = $conn->prepare("SELECT COUNT(*) FROM api_requests WHERE user_id = ? AND date >= NOW() - INTERVAL 24 HOUR");
-    $stmt->bind_param("i", $user['id']);
+    $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $stmt->execute();
     $count = $stmt->get_result()->fetch_row()[0];
@@ -41,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt = $conn->prepare("INSERT INTO api_requests (`user_id`, `loser`, `message`) VALUES (?, ?, ?)");
-    $stmt->bind_param("iss", $user['id'], $looser ?? '', $msg);
+    $stmt->bind_param("iss", $user_id, $looser ?? '', $msg);
 
     $stmt->execute();
     $stmt->close();
