@@ -1,0 +1,83 @@
+openapi: 3.0.0
+info:
+  title: api_spec.yaml
+  version: 1.0.0
+paths:
+  /send_message.php?msg=string&looser=Nath:
+    post:
+      summary: Send message
+      operationId: >-
+        home_nathanaelle_documents_bruno_test_collections_lostme_send_message_yml
+      description: |-
+        This endpoint is for sending a message.<br>
+        It costs 1 credit.
+      tags:
+        - ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                simple-example:
+                  value: |-
+                    {
+                      "response": "Messages send !"
+                    }
+                  summary: simple-example
+                  description: A simple exemple
+                with-looser-example:
+                  value: |-
+                    {
+                      "response": "Messages send !"
+                    }
+                  summary: with-looser-example
+                  description: A exemple with a loser
+      parameters:
+        - name: msg
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+          example: Tu a perdu
+        - name: looser
+          in: query
+          description: ''
+          required: false
+          schema:
+            type: string
+          example: Nath
+  /get_users.php:
+    get:
+      summary: Get users
+      operationId: home_nathanaelle_documents_bruno_test_collections_lostme_get_users_yml
+      description: |-
+        This Entrypoint retrun a json list of user.\
+        It cost 0 credits
+      tags:
+        - ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              example:
+                - Nath
+                - Toto
+                - Pluton
+servers:
+  - url: https://lostme.nathanaelle.org/api/v0
+    description: Base Server
+  - url: https://lostme.nathanaelle.org/api/v0
+    description: exemple
+  - url: https://lostme.nathanaelle.org/api/v0
+    description: main
+components:
+  schemas: {}
+  requestBodies: {}
+  securitySchemes: {}
