@@ -19,7 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         json(401, ['error' => 'Clé API invalide ou manquante']);
         exit;
     }
-    $stmt = $conn->query("SELECT username FROM users");
+    
+    $stmt = $conn->query("SELECT username FROM users WHERE confirm = 1");
 
     if (!$stmt) {
         json(500, ['error' => 'Erreur SQL']);
