@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
-    $msg = $_POST['msg'];
-    $looser = $_POST['looser'] ?? '';
+    $msg = $_GET['msg'];
+    $looser = $_GET['looser'] ?? '';
 
     if (!isset($msg)) {
         json(400, ['error' => 'Body JSON invalide ou manquant']);
