@@ -1,0 +1,46 @@
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+.discord-button {
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #5865F2; /* couleur Discord */
+  color: #fff;
+  font-weight: 600;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition-duration: 0.2s;
+  width: fit-content;
+}
+
+.discord-button:hover {
+  background-color: #4752c4;
+  cursor: pointer;
+}
+
+.discord-button svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  fill: white;
+}

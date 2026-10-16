@@ -16,7 +16,7 @@ $DB_port = getenv('DB_PORT');
 
 $clientId = getenv('CLIENT_ID');
 $clientSecret = getenv('CLIENT_SECRET');
-$redirectUri = getenv('REDIRECT_URI');
+$redirectUri = getenv('DISCORD_REDIRECT_URL');
 $botToken = getenv('BOT_TOKEN');
 
 $conn = new mysqli($DB_host, $DB_user, $DB_pass, $DB_name, $DB_port);
@@ -133,4 +133,11 @@ function send_messages($loser, $message) {
         
     }
 }
+
+function json(int $code, array $data): void {
+    http_response_code($code);
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
+
 ?>

@@ -2,19 +2,13 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
-function json(int $code, array $data): void {
-    http_response_code($code);
-    header('Content-Type: application/json');
-    echo json_encode($data);
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $headers     = getallheaders();
     $auth        = $headers['Authorization'] ?? '';
     $providedKey = str_starts_with($auth, 'Bearer ') ? substr($auth, 7) : null;
     
 
-    $stmt = $conn->prepare("SELECT id, expires_at FROM user WHERE api_key = ? LIMIT 1");
+    $stmt = $conn->prepare("SELECT id, username FROM user WHERE api_key = ? LIMIT 1");
     $stmt->bind_param("s", hash('sha256', $apiKeyRecue));
     $stmt->execute();
     $result = $stmt->get_result();
@@ -53,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     send_messages(
         $body['looser'] ?? '',
-        $body['msg']
+        $body['msg'] . '\nCe message perdant vous à été envoyée par ' . $user['username'] 
     );
     json(200, ['response' => "Messages send !"]);
 }

@@ -120,3 +120,12 @@ input {
     text-align: left;
     padding: 2.5px;
 }
+
+code {
+    margin: 2px;
+    padding: 2px;
+    background: black;
+    border: 1px solid white;
+    user-select: all;
+    border-radius: 5px;
+}

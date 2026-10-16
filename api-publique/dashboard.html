@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/res/css/index.css" type="text/css" />
+      <link rel="stylesheet" href="/res/css/login.css" type="text/css" />
+      <script src="/res/js/api-dashboard.js" defer></script>
+      <title>LostMe API</title>
+    </head>
+    <body>
+      <?php include $_SERVER['DOCUMENT_ROOT'] . "/res/html/nav.html"; ?>
+      <main style="display: flex;flex-direction: column; text-align: center;">
+        <a href="/docs/api_spec.yaml" class="button" download="api_spec.yaml">Télécharger OpenAPI Documentation</a>
+        <hr>
+        <a class="button" id="new-api-key-button">Generer une nouvelle clé API</a>
+        <code id="api-key"></code>
+      </main>
+    </body>
+
+</html>
+
