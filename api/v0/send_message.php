@@ -6,10 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $headers     = getallheaders();
     $auth        = $headers['Authorization'] ?? '';
     $providedKey = str_starts_with($auth, 'Bearer ') ? substr($auth, 7) : null;
-    
+
+    $hash = hash('sha256', $providedKey);    
 
     $stmt = $conn->prepare("SELECT id, username FROM users WHERE api_key = ? LIMIT 1");
-    $stmt->bind_param("s", hash('sha256', $providedKey));
+    $stmt->bind_param("s", $hash);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
@@ -28,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM requetes WHERE user_id = ? AND created_at >= NOW() - INTERVAL 24 HOUR");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM api_requests WHERE user_id = ? AND created_at >= NOW() - INTERVAL 24 HOUR");
     $stmt->bind_param("i", $user['id']);
     $stmt->execute();
     $stmt->execute();
