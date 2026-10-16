@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt = $conn->prepare("INSERT INTO api_requests (`user_id`, `loser`, `message`) VALUES (?, ?, ?)");
-    $stmt->bind_param("iss", $user_id, $looser ?? '', $msg);
+    $stmt->bind_param("iss", $user_id, $looser, $msg);
 
     $stmt->execute();
     $stmt->close();
