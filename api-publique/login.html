@@ -11,6 +11,7 @@
     <body>
       <?php include $_SERVER['DOCUMENT_ROOT'] . "/res/html/nav.html"; ?>
       <main>
+        <?php echo $error; ?>
         <form action="/api-publique/" method="post" id="form">
           <label for="username">Nom d'utilisateur :</label>
           <input type="text" name="username" id="username">
