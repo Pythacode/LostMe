@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     
 
     $stmt = $conn->prepare("SELECT id, username FROM users WHERE api_key = ? LIMIT 1");
-    $stmt->bind_param("s", hash('sha256', $apiKeyRecue));
+    $stmt->bind_param("s", hash('sha256', $providedKey));
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         json(401, ['error' => 'Clé API invalide ou manquante']);
         exit;
     }
-    
+
     $stmt = $conn->query("SELECT username FROM users WHERE confirm = 1");
 
     if (!$stmt) {

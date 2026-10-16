@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     $stmt = $conn->prepare("SELECT id, username FROM users WHERE api_key = ? LIMIT 1");
-    $stmt->bind_param("s", hash('sha256', $apiKeyRecue));
+    $stmt->bind_param("s", hash('sha256', $providedKey));
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
